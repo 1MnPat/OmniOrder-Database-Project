@@ -21,9 +21,10 @@ CREATE OR REPLACE TYPE t_order_item_list AS TABLE OF t_order_item;
 -- 3. PACKAGE SPECIFICATION
 -- =========================
 CREATE OR REPLACE PACKAGE pkg_order_management AS
-    -- GLOBAL VARIABLE (Required for 1.5 Marks)
+    -- Global Variables (Requirement: 1.5 Marks)
     gv_tax_rate CONSTANT NUMBER := 0.13;
 
+    -- Existing Procedures
     PROCEDURE sp_create_order (
         p_user_id IN USERS.user_id%TYPE,
         p_items   IN t_order_item_list
@@ -31,6 +32,15 @@ CREATE OR REPLACE PACKAGE pkg_order_management AS
 
     PROCEDURE sp_cancel_order (
         p_order_id IN ORDERS.order_id%TYPE
+    );
+
+    -- NEW: Manager-specific product management
+    PROCEDURE sp_add_product_by_manager (
+        p_manager_id   IN USERS.user_id%TYPE,
+        p_product_name IN PRODUCTS.product_name%TYPE,
+        p_price        IN PRODUCTS.price%TYPE,
+        p_stock        IN PRODUCTS.stock_quantity%TYPE,
+        p_category_id  IN PRODUCTS.category_id%TYPE
     );
 
     FUNCTION fn_calculate_order_total (
@@ -45,6 +55,46 @@ END pkg_order_management;
 -- =========================
 CREATE OR REPLACE PACKAGE BODY pkg_order_management AS
 
+    -- =========================================
+    -- NEW: MANAGER ADD PRODUCT (Autofill Brand)
+    -- =========================================
+    PROCEDURE sp_add_product_by_manager (
+        p_manager_id   IN USERS.user_id%TYPE,
+        p_product_name IN PRODUCTS.product_name%TYPE,
+        p_price        IN PRODUCTS.price%TYPE,
+        p_stock        IN PRODUCTS.stock_quantity%TYPE,
+        p_category_id  IN PRODUCTS.category_id%TYPE
+    ) IS
+        v_brand_id BRANDS.brand_id%TYPE;
+        v_role     USER_ROLES.role_name%TYPE;
+    BEGIN
+        -- Security: Verify user is a Manager
+        SELECT r.role_name INTO v_role 
+        FROM USERS u JOIN USER_ROLES r ON u.role_id = r.role_id 
+        WHERE u.user_id = p_manager_id;
+
+        IF v_role <> 'Manager' THEN
+            RAISE_APPLICATION_ERROR(-20010, 'Access Denied: Only Managers can list products.');
+        END IF;
+
+        -- Autofill: Find brand owned by this manager
+        SELECT brand_id INTO v_brand_id 
+        FROM BRANDS 
+        WHERE owner_id = p_manager_id;
+
+        -- Insert Product using the Architecture Sequence
+        INSERT INTO PRODUCTS (product_id, product_name, price, stock_quantity, category_id, brand_id)
+        VALUES (prod_seq.NEXTVAL, p_product_name, p_price, p_stock, p_category_id, v_brand_id);
+        
+        COMMIT;
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            RAISE_APPLICATION_ERROR(-20011, 'Profile Error: Manager has no associated Brand.');
+    END;
+
+    -- =========================================
+    -- EXISTING: CREATE ORDER
+    -- =========================================
     PROCEDURE sp_create_order (
         p_user_id IN USERS.user_id%TYPE,
         p_items   IN t_order_item_list
@@ -60,8 +110,6 @@ CREATE OR REPLACE PACKAGE BODY pkg_order_management AS
         END IF;
 
         SELECT 1 INTO v_dummy FROM users WHERE user_id = p_user_id;
-
-        -- Use your Architect Sequence
         SELECT seq_order_id.NEXTVAL INTO v_order_id FROM dual;
 
         INSERT INTO orders (order_id, user_id, total_amount, status)
@@ -101,6 +149,9 @@ CREATE OR REPLACE PACKAGE BODY pkg_order_management AS
             RAISE;
     END;
 
+    -- =========================================
+    -- EXISTING: CANCEL ORDER
+    -- =========================================
     PROCEDURE sp_cancel_order (p_order_id IN ORDERS.order_id%TYPE) IS
         v_dummy NUMBER;
     BEGIN
@@ -111,8 +162,6 @@ CREATE OR REPLACE PACKAGE BODY pkg_order_management AS
             WHERE product_id = item.product_id;
         END LOOP;
 
-        -- This UPDATE will trigger your trg_status_timestamp automatically.
-        -- Manual INSERT removed to avoid duplication.
         UPDATE orders SET status = 'CANCELLED' WHERE order_id = p_order_id;
         COMMIT;
     EXCEPTION

@@ -1,12 +1,12 @@
 CREATE OR REPLACE TRIGGER trg_log_price_change
 AFTER UPDATE OF price ON PRODUCTS
 FOR EACH ROW
-WHEN (NEW.price <> OLD.price) -- Ensures logging only occurs if the price value actually changes
+WHEN (NEW.price <> OLD.price) -- Only fires if the price value actually changes
 DECLARE
     v_user_id USERS.user_id%TYPE;
 BEGIN
-    -- In a production environment, this would be captured from the application session.
-    -- For this project, we default to the Admin ID (101) established in your Architect DML.
+    -- In a full-stack app, the frontend would pass the session user_id.
+    -- We use 101 (Admin) as the default system-actor for this project.
     v_user_id := 101; 
 
     INSERT INTO PRICE_AUDIT_LOG (
