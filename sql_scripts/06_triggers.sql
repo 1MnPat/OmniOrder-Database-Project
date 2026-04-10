@@ -100,10 +100,10 @@ BEGIN
     END IF;
 EXCEPTION
     WHEN OTHERS THEN
-        IF SQLCODE BETWEEN -20999 AND -20000 THEN
-            RAISE;
-        END IF;
-        DBMS_OUTPUT.PUT_LINE('trg_no_shared_email error: ' || SQLERRM);
+        -- For any unhandled exception, log and raise a general application error.
+        DBMS_OUTPUT.PUT_LINE('trg_no_shared_email error (unexpected): ' || SQLERRM);
+        RAISE_APPLICATION_ERROR(-20998, 'Unexpected error during customer email validation: ' || SQLERRM);
+
         RAISE_APPLICATION_ERROR(-20008, 'Customer email validation failed: ' || SQLERRM);
 END;
 /
