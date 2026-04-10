@@ -10,8 +10,30 @@ INSERT INTO USER_ROLES (role_id, role_name) VALUES (5, 'IT_Support');
 INSERT INTO CATEGORIES (category_id, category_name, description) VALUES (10, 'Electronics', 'Smartphones, laptops, and hardware');
 INSERT INTO CATEGORIES (category_id, category_name, description) VALUES (20, 'Digital Art', 'High-quality digital illustrations and prints');
 INSERT INTO CATEGORIES (category_id, category_name, description) VALUES (30, 'Apparel', 'Branded clothing and accessories');
-INSERT INTO CATEGORIES (category_id, category_name, description) VALUES (40, 'Home & Office', 'Furniture and stationery for workspace');
+INSERT INTO CATEGORIES (category_id, category_name, description) VALUES (40, 'Home and Office', 'Furniture and stationery for workspace');
 INSERT INTO CATEGORIES (category_id, category_name, description) VALUES (50, 'Services', 'Consulting and custom design services');
+
+-- Run this to fix the Parent Key error for Users
+INSERT INTO USERS (user_id, first_name, last_name, email, password, role_id) 
+VALUES (101, 'Mohammednaeem', 'Patel', 'naeem@example.com', 'admin_pass', 1);
+INSERT INTO USERS (user_id, first_name, last_name, email, password, role_id) 
+VALUES (102, 'Alice', 'Smith', 'alice@test.com', 'pass', 2);
+INSERT INTO USERS (user_id, first_name, last_name, email, password, role_id) 
+VALUES (103, 'Bob', 'Jones', 'bob@test.com', 'pass', 2);
+INSERT INTO USERS (user_id, first_name, last_name, email, password, role_id) 
+VALUES (104, 'Charlie', 'Brown', 'charlie@test.com', 'pass', 2);
+INSERT INTO USERS (user_id, first_name, last_name, email, password, role_id) 
+VALUES (105, 'Diana', 'Prince', 'diana@test.com', 'pass', 2);
+INSERT INTO USERS (user_id, first_name, last_name, email, password, role_id) 
+VALUES (106, 'Edward', 'Norton', 'edward@test.com', 'pass', 3);
+INSERT INTO USERS (user_id, first_name, last_name, email, password, role_id) 
+VALUES (107, 'Fiona', 'Gallagher', 'fiona@test.com', 'pass', 2);
+INSERT INTO USERS (user_id, first_name, last_name, email, password, role_id) 
+VALUES (108, 'George', 'Costanza', 'george@test.com', 'pass', 2);
+INSERT INTO USERS (user_id, first_name, last_name, email, password, role_id) 
+VALUES (109, 'Hannah', 'Baker', 'hannah@test.com', 'pass', 2);
+INSERT INTO USERS (user_id, first_name, last_name, email, password, role_id) 
+VALUES (110, 'Ian', 'Curtis', 'ian@test.com', 'pass', 4);
 
 
 

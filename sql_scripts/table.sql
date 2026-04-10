@@ -1,9 +1,15 @@
--- 1. Drops tables if they already exist to allow for re-runs
 BEGIN
+   -- Drop Tables
    FOR t IN (SELECT table_name FROM user_tables WHERE table_name IN 
      ('ORDER_STATUS_HISTORY', 'PRICE_AUDIT_LOG', 'ORDER_ITEMS', 'ORDERS', 'PRODUCTS', 'USERS', 'CATEGORIES', 'USER_ROLES'))
    LOOP
       EXECUTE IMMEDIATE 'DROP TABLE ' || t.table_name || ' CASCADE CONSTRAINTS';
+   END LOOP;
+
+   -- Drop Sequences (Fixes ORA-00955)
+   FOR s IN (SELECT sequence_name FROM user_sequences WHERE sequence_name IN ('SEQ_ORDER_ID', 'ORDER_ITEM_SEQ'))
+   LOOP
+      EXECUTE IMMEDIATE 'DROP SEQUENCE ' || s.sequence_name;
    END LOOP;
 END;
 /
@@ -77,18 +83,19 @@ CREATE TABLE ORDER_STATUS_HISTORY (
     update_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- 5. SEQUENCES (Rubric Requirement: 1 mark)
--- This will be used primarily for Order IDs
-CREATE SEQUENCE seq_order_id 
-    START WITH 100 
-    INCREMENT BY 1 
-    NOCACHE;
+-- ======================================================
+-- 5. SEQUENCES (Now safe to create)
+-- ======================================================
+CREATE SEQUENCE seq_order_id START WITH 100 INCREMENT BY 1 NOCACHE;
+CREATE SEQUENCE order_item_seq START WITH 1 INCREMENT BY 1 NOCACHE;
 
+-- ======================================================
 -- 6. INDEXES (Rubric Requirement: 0.5 marks)
--- Index for frequent searches by product name
+-- ======================================================
+
+-- Index 1: Frequent search by Product Name
 CREATE INDEX idx_product_name ON PRODUCTS(product_name);
 
--- Index for frequent searches by customer email 
-CREATE INDEX idx_user_email ON USERS(email);
-
-COMMIT;
+-- Index 2: Frequent search by Order Status 
+-- (REPLACED email index with this to avoid ORA-01408 error)
+CREATE INDEX idx_order_status ON ORDERS(status);
