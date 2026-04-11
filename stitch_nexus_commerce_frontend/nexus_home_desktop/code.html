@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nexus Commerce | Power Reimagined</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed-variant": "#004493",
+                    "on-secondary-fixed": "#001e30",
+                    "on-surface-variant": "#414755",
+                    "on-background": "#1a1c1f",
+                    "background": "#f9f9fe",
+                    "surface-variant": "#e2e2e7",
+                    "error-container": "#ffdad6",
+                    "primary-fixed": "#d8e2ff",
+                    "surface-container-highest": "#e2e2e7",
+                    "surface-container-high": "#e8e8ed",
+                    "on-tertiary-container": "#f7fff2",
+                    "primary-fixed-dim": "#adc6ff",
+                    "primary-container": "#0070eb",
+                    "surface-tint": "#005bc1",
+                    "secondary-fixed": "#cae6ff",
+                    "on-surface": "#1a1c1f",
+                    "inverse-on-surface": "#f0f0f5",
+                    "secondary": "#006494",
+                    "surface-dim": "#d9dade",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-container": "#63befe",
+                    "outline": "#717786",
+                    "on-tertiary-fixed-variant": "#00531c",
+                    "surface-container": "#ededf2",
+                    "outline-variant": "#c1c6d7",
+                    "surface-container-low": "#f3f3f8",
+                    "tertiary": "#006b27",
+                    "inverse-primary": "#adc6ff",
+                    "on-tertiary-fixed": "#002107",
+                    "on-secondary-fixed-variant": "#004b70",
+                    "on-secondary": "#ffffff",
+                    "on-primary-container": "#fefcff",
+                    "surface-bright": "#f9f9fe",
+                    "on-error": "#ffffff",
+                    "inverse-surface": "#2e3034",
+                    "error": "#ba1a1a",
+                    "on-primary-fixed": "#001a41",
+                    "tertiary-fixed": "#72fe88",
+                    "on-secondary-container": "#004c71",
+                    "surface": "#f9f9fe",
+                    "tertiary-container": "#008733",
+                    "on-primary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "on-tertiary": "#ffffff",
+                    "secondary-fixed-dim": "#8ecdff",
+                    "tertiary-fixed-dim": "#53e16f",
+                    "primary": "#0058bc"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Inter"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-nav {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface antialiased">
+<!-- TopAppBar Shell -->
+<nav class="fixed top-0 w-full z-50 bg-white/70 dark:bg-black/70 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.04)]">
+<div class="flex justify-between items-center h-16 px-8 max-w-[1920px] mx-auto">
+<!-- Brand -->
+<div class="text-xl font-bold tracking-tighter text-slate-900 dark:text-white">Nexus Commerce</div>
+<!-- Navigation Links -->
+<div class="hidden md:flex items-center space-x-8 font-['Inter'] tracking-tight text-sm font-medium">
+<a class="text-slate-900 dark:text-white font-semibold border-b-2 border-blue-600" href="#">GeForce RTX</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200" href="#">Radeon RX</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200" href="#">Workstation</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200" href="#">Benchmarks</a>
+</div>
+<!-- Trailing Icons -->
+<div class="flex items-center space-x-6">
+<button class="text-slate-900 dark:text-white hover:opacity-70 transition-opacity">
+<span class="material-symbols-outlined">search</span>
+</button>
+<button class="text-slate-900 dark:text-white hover:opacity-70 transition-opacity">
+<span class="material-symbols-outlined">person</span>
+</button>
+<button class="text-slate-900 dark:text-white hover:opacity-70 transition-opacity">
+<span class="material-symbols-outlined">shopping_cart</span>
+</button>
+</div>
+</div>
+</nav>
+<main class="pt-16">
+<!-- Hero Section -->
+<section class="relative h-[870px] flex items-center overflow-hidden bg-white">
+<div class="container mx-auto px-8 grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+<div class="md:col-span-5 z-10">
+<h1 class="text-[5rem] font-bold leading-[0.95] tracking-[-0.05em] text-on-surface mb-6">
+                        Power<br/>Reimagined.
+                    </h1>
+<p class="text-xl text-on-surface-variant font-medium leading-relaxed mb-10 max-w-md">
+                        Next-gen performance housed in iconic architectural design.
+                    </p>
+<div class="flex items-center gap-4">
+<button class="bg-gradient-to-br from-primary to-primary-container text-white px-8 py-4 rounded-full font-semibold text-lg shadow-xl shadow-primary/20 hover:scale-105 transition-transform">
+                            Shop now
+                        </button>
+<button class="text-primary px-8 py-4 rounded-full font-semibold text-lg hover:bg-surface-container-low transition-colors">
+                            Learn more
+                        </button>
+</div>
+</div>
+<div class="md:col-span-7 relative h-full flex justify-end">
+<img alt="Premium GPU Render" class="object-contain h-full w-full scale-125 translate-x-12 select-none" data-alt="ultra-realistic high-fidelity close-up of a sleek metallic GPU with intricate cooling fins and soft blue ambient lighting on a clean white background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIDFP6mEwenK7fT6InXDFe9IVLPntkUq_d_zOUGf5I9eRmuylHTIQH06cgAeLvPK-AjXZsm5hO8lrZpwmKboSbsu7pz0c_Kq4ifjQAYfLT2gTKVWlOpX3DNzrIB-2eCxgsNoghsmT0vVz8YCXA0lZamKm2v9jVmOgZoAf5KyOwxSJMf91JXOBxAbuTqR9_FtfiyiV99D4qr9EZeI44MNlwVL9dxjgDGNXilUMKAIR8KhaA2w8qH-3ZIgnF0h2L7CaNqWGeGYpnptw"/>
+</div>
+</div>
+</section>
+<!-- Category Strip -->
+<section class="py-12 bg-surface">
+<div class="container mx-auto px-8">
+<div class="flex items-center gap-4 overflow-x-auto pb-4 no-scrollbar">
+<button class="bg-on-surface text-white px-6 py-2.5 rounded-full text-sm font-semibold whitespace-nowrap">All</button>
+<button class="bg-surface-container-low text-on-surface-variant px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-surface-container-high transition-colors whitespace-nowrap">Gaming</button>
+<button class="bg-surface-container-low text-on-surface-variant px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-surface-container-high transition-colors whitespace-nowrap">RTX 40-Series</button>
+<button class="bg-surface-container-low text-on-surface-variant px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-surface-container-high transition-colors whitespace-nowrap">RX 7000-Series</button>
+<button class="bg-surface-container-low text-on-surface-variant px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-surface-container-high transition-colors whitespace-nowrap">Workstation</button>
+</div>
+</div>
+</section>
+<!-- Featured Grid -->
+<section class="py-20">
+<div class="container mx-auto px-8">
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+<!-- Card 1 -->
+<div class="group bg-surface-container-low rounded-[2rem] p-6 transition-all duration-300 hover:bg-white hover:shadow-2xl hover:shadow-black/5">
+<div class="bg-surface-container-high rounded-2xl mb-6 overflow-hidden aspect-square flex items-center justify-center p-8">
+<img alt="GPU Product" class="object-contain w-full h-full group-hover:scale-110 transition-transform duration-500" data-alt="front view of high-end graphics card with triple fan design and brushed aluminum shroud on light grey background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3fNTcR_Awi6DfWrH6cWWr0Q3csjnit8vCyJyhG_oaNSd8Onj_Ecp2BlyIWhI7MOQEG9teQskrvCoVxtlBYsIfSFUNtMbyzy2Mf48G1v0_fGBO0adGJyooYFiMc7qNfJToeI20yp73O7aAW83X4WmblE9603-_emfhTuKZaqTXZadz_sIxT5bM8FIlbwvgFbVdfHGXcgXPNO32CzeNzLK6vbcMYMQ9h3RU2lwvpdGUcJDucT6uzECxIsW90o1MFY7kFNuLPd78kgU"/>
+</div>
+<div class="flex justify-between items-end">
+<div>
+<p class="text-xs font-bold text-primary mb-1 tracking-widest">NVIDIA</p>
+<h3 class="text-xl font-bold tracking-tight text-on-surface">GeForce RTX 4090</h3>
+<p class="text-lg font-medium text-on-surface-variant mt-2">$1,599</p>
+</div>
+<button class="w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center shadow-lg shadow-primary/30 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="group bg-surface-container-low rounded-[2rem] p-6 transition-all duration-300 hover:bg-white hover:shadow-2xl hover:shadow-black/5">
+<div class="bg-surface-container-high rounded-2xl mb-6 overflow-hidden aspect-square flex items-center justify-center p-8">
+<img alt="GPU Product" class="object-contain w-full h-full group-hover:scale-110 transition-transform duration-500" data-alt="side view of modern graphics card with radiant led lighting and carbon fiber accents on neutral studio background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-Op2O5U8WRYMXZOQx7wBKFJoBx_SBCNY72Z3LK-BTsWbaM5s2EfGsAoei-yVbygSGXYCLEKT00emP28aVG5vjrJsF0yHp2b-6arCP34KBZXmwdC2BXJlaUm_J7JIXpgxcDHTFqQh2W_4n_AR_suhg5TLH9W5L1WTSKRyaCguOypj5w2ZAj-6EL9y5Qvz-vjfCU0vYXk87WI9fdAxSTha2n-Q_jInjcb95pfvXK6LISo_dGWa9LtS4CFyWNFh6boCinq_Cy8qIWB8"/>
+</div>
+<div class="flex justify-between items-end">
+<div>
+<p class="text-xs font-bold text-primary mb-1 tracking-widest">AMD</p>
+<h3 class="text-xl font-bold tracking-tight text-on-surface">Radeon RX 7900 XTX</h3>
+<p class="text-lg font-medium text-on-surface-variant mt-2">$999</p>
+</div>
+<button class="w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center shadow-lg shadow-primary/30 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="group bg-surface-container-low rounded-[2rem] p-6 transition-all duration-300 hover:bg-white hover:shadow-2xl hover:shadow-black/5">
+<div class="bg-surface-container-high rounded-2xl mb-6 overflow-hidden aspect-square flex items-center justify-center p-8">
+<img alt="GPU Product" class="object-contain w-full h-full group-hover:scale-110 transition-transform duration-500" data-alt="luxury workstation gpu with gold-plated accents and minimalist design aesthetic on soft grey background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBTOy17jKrXLnJc7peVX9cpQ7pWBrybDVGwIdGo-LfpAzjLp2NJXOgk3wp8roBhENKaRbnl9onw_ZXLXxb8TRbuGAh50YgMJihA4Xw_rXIzXB4rxEbbmZjcrXW9XfgdPdUeTNeY_9yozRY4RnPeF955EFU0AKdYd5ufMAxls0suKRJUhkr9kVF7WqgqFmGqKPZrup5LoyIScz6StgIDpHzz_A5hdZRD5P6LnknZe-gfI0N4w6NjYvBh_6evWIT7SkTBFpR--f80Sc"/>
+</div>
+<div class="flex justify-between items-end">
+<div>
+<p class="text-xs font-bold text-primary mb-1 tracking-widest">NVIDIA</p>
+<h3 class="text-xl font-bold tracking-tight text-on-surface">RTX 6000 Ada</h3>
+<p class="text-lg font-medium text-on-surface-variant mt-2">$6,799</p>
+</div>
+<button class="w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center shadow-lg shadow-primary/30 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="group bg-surface-container-low rounded-[2rem] p-6 transition-all duration-300 hover:bg-white hover:shadow-2xl hover:shadow-black/5">
+<div class="bg-surface-container-high rounded-2xl mb-6 overflow-hidden aspect-square flex items-center justify-center p-8">
+<img alt="GPU Product" class="object-contain w-full h-full group-hover:scale-110 transition-transform duration-500" data-alt="compact high-performance mini-gpu with dual fan setup and sleek black finish on clean studio light background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWn6p5JSxIim5NZtXp_7rbL2PLeTVj_N4CSUd1ZTI8sNornTySNzJj6evoc-yMatbpEUQBN-0z1lFppCE9wf6FgsFLTgSZZqX2869sFyxb_CH2FtEHAivfj6j2DwJOOfHTt75OxI25vsrekBFBPP_MZEELjccekE-JXfDdbbor2-3c_93DyY7vo4M75ozhIT5arVJgv7W0JKObbYphhELghs2tdIsKomhpDzHHQOxl3VYQcQswba7QaW0fn2Fhp-f01IfGJskW680"/>
+</div>
+<div class="flex justify-between items-end">
+<div>
+<p class="text-xs font-bold text-primary mb-1 tracking-widest">ASUS</p>
+<h3 class="text-xl font-bold tracking-tight text-on-surface">ROG Strix 4080</h3>
+<p class="text-lg font-medium text-on-surface-variant mt-2">$1,199</p>
+</div>
+<button class="w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center shadow-lg shadow-primary/30 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Why Us Section -->
+<section class="py-32 bg-white">
+<div class="container mx-auto px-8">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-20">
+<div class="text-center">
+<div class="w-16 h-16 bg-surface-container-low rounded-2xl flex items-center justify-center mx-auto mb-8">
+<span class="material-symbols-outlined text-primary text-4xl" style="font-variation-settings: 'FILL' 0;">local_shipping</span>
+</div>
+<h4 class="text-2xl font-bold mb-4 tracking-tight">Fast Shipping</h4>
+<p class="text-on-surface-variant leading-relaxed">Precision-engineered logistics. Your hardware arrives securely packaged and ready for deployment within 48 hours.</p>
+</div>
+<div class="text-center">
+<div class="w-16 h-16 bg-surface-container-low rounded-2xl flex items-center justify-center mx-auto mb-8">
+<span class="material-symbols-outlined text-primary text-4xl" style="font-variation-settings: 'FILL' 0;">verified</span>
+</div>
+<h4 class="text-2xl font-bold mb-4 tracking-tight">3-Year Warranty</h4>
+<p class="text-on-surface-variant leading-relaxed">We stand by the silicon. Every purchase is backed by our comprehensive hardware guarantee and replacement plan.</p>
+</div>
+<div class="text-center">
+<div class="w-16 h-16 bg-surface-container-low rounded-2xl flex items-center justify-center mx-auto mb-8">
+<span class="material-symbols-outlined text-primary text-4xl" style="font-variation-settings: 'FILL' 0;">headset_mic</span>
+</div>
+<h4 class="text-2xl font-bold mb-4 tracking-tight">Expert Support</h4>
+<p class="text-on-surface-variant leading-relaxed">Direct access to our engineering team. Technical assistance for overclocking, installation, and driver optimization.</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer Shell -->
+<footer class="bg-slate-50 dark:bg-zinc-950 w-full rounded-t-3xl mt-20">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-12 px-12 py-20 max-w-7xl mx-auto font-['Inter'] text-xs leading-relaxed">
+<div class="col-span-2 md:col-span-1">
+<div class="text-lg font-bold text-slate-900 dark:text-white mb-6">Nexus Commerce</div>
+<p class="text-slate-500 dark:text-slate-400 max-w-xs">Engineering Precision in every frame. We curate the world's most powerful visual computing hardware.</p>
+</div>
+<div>
+<h5 class="text-slate-900 dark:text-white font-bold mb-6 uppercase tracking-wider">Explore</h5>
+<ul class="space-y-4 text-slate-500 dark:text-slate-400">
+<li><a class="hover:underline decoration-blue-500 underline-offset-4" href="#">Shop All GPUs</a></li>
+<li><a class="hover:underline decoration-blue-500 underline-offset-4" href="#">Driver Downloads</a></li>
+<li><a class="hover:underline decoration-blue-500 underline-offset-4" href="#">Order Tracking</a></li>
+<li><a class="hover:underline decoration-blue-500 underline-offset-4" href="#">Technical Support</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-slate-900 dark:text-white font-bold mb-6 uppercase tracking-wider">Company</h5>
+<ul class="space-y-4 text-slate-500 dark:text-slate-400">
+<li><a class="hover:underline decoration-blue-500 underline-offset-4" href="#">Sustainability</a></li>
+<li><a class="hover:underline decoration-blue-500 underline-offset-4" href="#">Global Fleet</a></li>
+<li><a class="hover:underline decoration-blue-500 underline-offset-4" href="#">Press Kit</a></li>
+<li><a class="hover:underline decoration-blue-500 underline-offset-4" href="#">Privacy Policy</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-slate-900 dark:text-white font-bold mb-6 uppercase tracking-wider">Connect</h5>
+<p class="text-slate-500 dark:text-slate-400 mb-4">Join our engineering newsletter for exclusive release dates.</p>
+<div class="flex gap-2">
+<input class="bg-surface-container-highest border-none rounded-lg text-xs w-full focus:ring-1 focus:ring-primary" placeholder="Email" type="text"/>
+<button class="bg-primary text-white px-4 py-2 rounded-lg font-semibold">Join</button>
+</div>
+</div>
+</div>
+<div class="border-t border-slate-200 dark:border-zinc-800 py-10 px-12 text-center text-slate-400">
+            © 2024 Nexus Commerce. Engineering Precision.
+        </div>
+</footer>
+</body></html>
