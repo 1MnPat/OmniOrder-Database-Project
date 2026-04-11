@@ -1,58 +1,85 @@
-# Nexus Commerce — Database Project (COMP214)
+# Nexus Commerce
 
-Oracle PL/SQL backend for **Nexus Commerce**, a company-owned GPU store: **customers** buy **products**; **admins** manage catalog and orders. No marketplace, no roles table—only `ADMINS` and `CUSTOMERS`.
+Full-stack **GPU e-commerce** project for COMP214: an **Oracle** database (PL/SQL, triggers, procedures) plus a **Next.js** **REST API** and **web storefront** that consume it.
 
-**Schema (8 tables):** `ADMINS`, `CUSTOMERS`, `CATEGORIES`, `PRODUCTS`, `ORDERS`, `ORDER_ITEMS`, `ORDER_STATUS_HISTORY`, `PRICE_AUDIT_LOG`.
+- **Seller:** Nexus Commerce (no marketplace). Roles are modeled as **`ADMINS`** and **`CUSTOMERS`** only (no generic roles table).
+- **Schema (8 tables):** `ADMINS`, `CUSTOMERS`, `CATEGORIES`, `PRODUCTS`, `ORDERS`, `ORDER_ITEMS`, `ORDER_STATUS_HISTORY`, `PRICE_AUDIT_LOG`.
 
-Scripts live in **`sql_scripts/`** and are numbered so you run them in order.
+---
+
+## Repository layout
+
+| Path | Purpose |
+|------|---------|
+| `sql_scripts/` | Numbered DDL/DML, procedures, tests (run in order). |
+| `app/api/` | Next.js Route Handlers — REST API (`/api/...`). |
+| `app/` (pages) | Storefront UI: home, catalog, cart, checkout, account, orders, admin. |
+| `components/` | Shared React UI (header, product cards, footer). |
+| `contexts/` | Client auth and shopping cart (localStorage). |
+| `lib/` | `db.js` (Oracle), `auth.js` (JWT), `middleware.js`, `response.js`, `api-client.js`. |
+| `stitch_nexus_commerce_frontend/` | Original HTML/mock inspiration (reference only). |
+
+---
+
+## Tech stack
+
+| Layer | Technology |
+|-------|------------|
+| Runtime | Node.js (Windows supported) |
+| App framework | Next.js 14+ (App Router) |
+| Database | Oracle Database 21c / 23c / XE (via `oracledb`) |
+| Auth | JWT (`jsonwebtoken`), passwords hashed with `bcryptjs` |
+| UI | React 18, Tailwind CSS 3 |
 
 ---
 
 ## Prerequisites
 
-- **Oracle Database** (e.g. 21c, 23c, or XE) with a schema/user where you can create tables, sequences, indexes, triggers, procedures, functions, and packages.
-- A client that can run scripts: **SQL\*Plus**, **SQLcl**, or **SQL Developer** (see notes below).
-- For demos that print messages: **`SET SERVEROUTPUT ON`** before running `11_test.sql`.
+- **Oracle Database** with a user/schema that can create tables, sequences, packages, triggers, and procedures.
+- **Node.js 18+** and **npm**.
+- **SQL\*Plus**, **SQLcl**, or **SQL Developer** to run `sql_scripts/`.
+- Optional: **Oracle Instant Client** (Thick mode). If you do not install it, the app uses **node-oracledb Thin mode** (no client DLLs) by default.
 
 ---
 
-## First-time setup (empty schema)
+## 1. Database setup
 
-Run these files **in order** from the `sql_scripts` folder:
+Run scripts **in order** from the `sql_scripts` folder.
 
-| Order | File | What it does |
-|------:|------|----------------|
-| — | `00_cleanup_legacy_schema.sql` | **Optional.** Only if an older project (e.g. `USERS`, `BRANDS`, `pkg_order_management`) still exists in this schema. |
-| 1 | `01_drop_nexus_commerce.sql` | **Optional on first install.** Safe to run; drops Nexus objects if they already exist (clean slate). |
-| 2 | `02_tables.sql` | Creates all tables. |
-| 3 | `03_sequences.sql` | Creates all sequences. |
-| 4 | `04_package_audit_context.sql` | `pkg_nc_audit_ctx` (admin id for price-change auditing). |
-| 5 | `05_indexes.sql` | Creates indexes. |
-| 6 | `06_triggers.sql` | Creates triggers. |
-| 7 | `07_functions.sql` | Standalone functions. |
-| 8 | `08_procedures.sql` | Standalone procedures. |
-| 9 | `09_package_nexus_commerce.sql` | `pkg_nexus_commerce` spec and body. |
-| 10 | `10_data.sql` | Sample data (`COMMIT` at end). |
-| 11 | `11_test.sql` | Demo calls (uses `SERVEROUTPUT`). |
+### First-time install (empty schema)
 
-**Minimum path for a brand-new schema:** `02` → `03` → `04` → … → `11` (skip `00` and `01` if nothing conflicts).
+| Order | File | Purpose |
+|------:|------|---------|
+| — | `00_cleanup_legacy_schema.sql` | Optional. Removes legacy objects if present. |
+| — | `01_drop_nexus_commerce.sql` | Optional. Drops Nexus objects for a clean reinstall. |
+| 1 | `02_tables.sql` | Tables |
+| 2 | `03_sequences.sql` | Sequences |
+| 3 | `04_package_audit_context.sql` | `pkg_nc_audit_ctx` (admin id for price audit trigger) |
+| 4 | `05_indexes.sql` | Base indexes |
+| 5 | `06_triggers.sql` | Triggers |
+| 6 | `07_functions.sql` | Functions |
+| 7 | `08_procedures.sql` | Standalone procedures (`sp_register_customer`, `sp_place_order`, etc.) |
+| 8 | `09_package_nexus_commerce.sql` | Package `pkg_nexus_commerce` |
+| 9 | `10_data.sql` | Sample data |
+| 10 | `11_test.sql` | Demo / tests (`SET SERVEROUTPUT ON` in SQL\*Plus/SQLcl) |
 
----
+**Minimum sequence for a new schema:** `02` → `03` → … → `11` (skip `00`/`01` if not needed).
 
-## Reinstall / reset Nexus only
+### Optional performance scripts (after the above)
 
-If you already deployed Nexus and want to wipe **only** Nexus Commerce objects, run:
+| File | Purpose |
+|------|---------|
+| `12_indexes_catalog_performance.sql` | Extra B-tree indexes for catalog filters and sorting. |
+| `13_oracle_text_product_search.sql` | Oracle **CONTEXT** indexes for faster text search. Requires Text privileges; then set `ORACLE_TEXT_SEARCH=true` in `.env`. |
 
-1. `01_drop_nexus_commerce.sql`
-2. Then **`02` through `11`** again (do not skip `02` after a drop).
+### Reinstall Nexus only
 
----
+1. Run `01_drop_nexus_commerce.sql`
+2. Run `02` through `11` again.
 
-## How to run the scripts
+### Running scripts
 
-### SQL\*Plus or SQLcl (recommended for full scripts)
-
-From a terminal, connect, then use `@` with the path to each file:
+**SQL\*Plus / SQLcl:**
 
 ```text
 sqlplus your_user/your_password@your_connect_string
@@ -60,59 +87,132 @@ sqlplus your_user/your_password@your_connect_string
 
 ```sql
 @sql_scripts/02_tables.sql
-@sql_scripts/03_sequences.sql
--- ... continue through 11_test.sql
+-- … continue through 11_test.sql
 ```
 
-On **Windows**, use a path SQL\*Plus accepts, for example:
+Use full Windows paths if needed, e.g. `@c:\path\to\Database_Project\sql_scripts\02_tables.sql`.
 
-```text
-@c:\Users\yourname\OneDrive\Desktop\Database_Project\sql_scripts\02_tables.sql
-```
+**SQL Developer:** Open each file, connect, run as script (**F5**). For `11_test.sql`, enable **Dbms Output**.
 
-Scripts use **`PROMPT`** lines (SQL\*Plus/SQLcl). Those print progress; they are **not** plain SQL—ignore errors only if your tool does not support `PROMPT` (then remove those lines or use SQLcl/SQL\*Plus).
+### Database rules for applications
 
-### SQL Developer
-
-- Open each `.sql` file, connect to your schema, run the script (**F5** “Run Script” runs the whole file as a script).
-- If **`PROMPT`** causes issues, delete the `PROMPT ...` lines or run in **SQL\*Plus/SQLcl** instead.
-- For `11_test.sql`, enable **View → Dbms Output** and turn output on, or the `DBMS_OUTPUT` lines will not appear.
+- Prefer **`sp_*` procedures** (or package entry points) for registration, orders, status changes, and product deactivation so triggers and business rules stay consistent.
+- **Price updates** that must log to `PRICE_AUDIT_LOG`: set `pkg_nc_audit_ctx.g_admin_id` to a valid `ADMINS.admin_id` **in the same database session** before `UPDATE products SET price = ...` (see `11_test.sql` and product `PUT` in the API).
 
 ---
 
-## After installation
+## 2. Application environment
 
-- **Application code** should prefer **`sp_*` procedures** or **`pkg_nexus_commerce.*`** for orders and registration so stock and totals stay consistent with the design.
-- **Admin price updates** that must write `PRICE_AUDIT_LOG` via trigger: set **`pkg_nc_audit_ctx.g_admin_id`** to a valid `ADMINS.admin_id` in the **same session** before `UPDATE products ... SET price = ...`, then `COMMIT` (see `11_test.sql`).
+Create **`.env`** or **`.env.local`** in the project root (never commit real secrets). Example:
+
+```env
+# Oracle — use your real course/user credentials
+DB_USER=your_schema_user
+DB_PASSWORD=your_password
+
+# Connect string: use ONE of the styles below (not both).
+
+# (A) Easy Connect — service name (common for pluggable DBs, e.g. XEPDB1)
+# DB_CONNECT_STRING=199.212.26.208:1521/XEPDB1
+
+# (B) Full TNS descriptor — e.g. SID-based (no spaces; entire value after =)
+DB_CONNECT_STRING=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=199.212.26.208)(PORT=1521))(CONNECT_DATA=(SID=SQLD)))
+
+# JWT
+JWT_SECRET=your_long_random_secret
+JWT_EXPIRES_IN=24h
+
+# App URL (browser + server fetches)
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+
+# Optional: Oracle Instant Client folder (Thick mode). Omit to use Thin mode.
+# ORACLE_CLIENT_LIB_DIR=C:\oracle\instantclient_23_0
+
+# Optional: after running sql_scripts/13_oracle_text_product_search.sql
+# ORACLE_TEXT_SEARCH=true
+```
+
+**`DB_CONNECT_STRING`:**
+
+- **Easy Connect:** `host:port/SERVICE_NAME` — the piece after `/` must be a **service name** registered with the listener (wrong name → `NJS-518`).
+- **TNS descriptor (recommended when your DBA gives SID):** a single line in parentheses, e.g. `(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=...)(PORT=1521))(CONNECT_DATA=(SID=YOURSID)))`. node-oracledb accepts this as `connectString` unchanged.
+- Put **only** the connect string after the first `=` on the line — do not repeat `DB_CONNECT_STRING=` inside the value.
 
 ---
 
-## Troubleshooting
+## 3. Install and run
+
+```bash
+npm install
+npm run dev
+```
+
+Open **http://localhost:3000**.
+
+| Command | Purpose |
+|---------|---------|
+| `npm run dev` | Development server (hot reload). |
+| `npm run build` | Production build. |
+| `npm start` | Serve production build (after `build`). |
+| `npm run lint` | ESLint. |
+
+If you see **`Cannot find module './<number>.js'`** or odd webpack errors, stop the dev server, delete the **`.next`** folder, and run `npm run dev` again.
+
+---
+
+## 4. REST API (summary)
+
+Base URL: same origin as the app, e.g. `http://localhost:3000/api/...`.
+
+**Public:** `POST /api/auth/register`, `POST /api/auth/login`, `POST /api/auth/logout`, `GET /api/products`, `GET /api/products/[id]`, `GET /api/categories`.
+
+**Customer (Bearer JWT):** `GET|POST /api/orders`, `GET /api/orders/[id]`, `POST /api/orders/[id]/cancel`, `GET|PUT /api/customers/me`.
+
+**Admin (Bearer JWT):** Product/category mutations, `PATCH /api/orders/[id]/status`, `/api/admin/*` (dashboard, reports, customers, audit, create admin).
+
+Success responses use `{ "success": true, "data": ... }`; errors use `{ "success": false, "error": "..." }`.
+
+---
+
+## 5. Web storefront (UI)
+
+| Route | Description |
+|-------|-------------|
+| `/` | Home, featured products |
+| `/products` | Catalog, search, category filter, pagination |
+| `/products/[id]` | Product detail, add to cart (customer) |
+| `/cart` | Cart (local storage) |
+| `/checkout` | Place order (`POST /api/orders`) |
+| `/login`, `/register` | Authentication |
+| `/account` | Profile (`/api/customers/me`) |
+| `/orders`, `/orders/[id]` | Orders; customers can **Cancel order** when status allows |
+| `/admin` | Admin dashboard (metrics) |
+
+JWT is stored in **`localStorage`** (`nexus_token`) for the browser client.
+
+---
+
+## 6. Troubleshooting
 
 | Symptom | What to try |
 |--------|-------------|
-| `ORA-00955` / name already used | Run `01_drop_nexus_commerce.sql`, then rerun `02`–`11`. |
-| `ORA-02289` / sequence does not exist | You skipped `03_sequences.sql` or drop removed sequences; rerun from `03` upward. |
-| `ORA-02291` / integrity constraint violated | Run scripts in order; ensure `10_data.sql` runs after all DDL. |
-| `-20007` on price update | Set `pkg_nc_audit_ctx.g_admin_id` before updating `PRODUCTS.PRICE`. |
-| No output from tests | `SET SERVEROUTPUT ON` (SQL\*Plus/SQLcl) or enable DBMS Output in SQL Developer. |
+| `DPI-1047` (Oracle Client not found) | Omit `ORACLE_CLIENT_LIB_DIR` to use **Thin** mode, or install Instant Client and set `ORACLE_CLIENT_LIB_DIR` to the folder containing `oci.dll`. |
+| `NJS-518` service not registered | Easy Connect: use correct `host:port/SERVICE`. Or use a full TNS `DESCRIPTION=...` with correct `SID` / `SERVICE_NAME` from your DBA. |
+| `NJS-515` invalid connect string | Easy Connect must look like `host:port/service` — no junk prefix. For TNS descriptors, use one line with parentheses; do not duplicate `DB_CONNECT_STRING=` inside the value. |
+| `ORA-00955` / name already used | Run `01_drop_nexus_commerce.sql`, then `02`–`11`. |
+| `ORA-02289` sequence missing | Rerun from `03_sequences.sql` upward. |
+| `-20007` on price update | Set `pkg_nc_audit_ctx.g_admin_id` before updating `PRODUCTS.PRICE` (API does this in one transaction for admin price updates). |
+| Webpack missing chunk / `948.js` | Delete **`.next`**, restart `npm run dev`. |
+| Login 500 / bcrypt “undefined” | Oracle column names: API uses quoted aliases so `password` binds correctly. |
 
 ---
 
-## Group collaboration — AI session prompt (optional)
+## 7. Course / collaboration note
 
-You can paste the block below into a new chat so the model uses the **current** schema names.
+Schema and script naming follow **`sql_scripts/`** execution order. For PL/SQL work, prefer `%TYPE`, `%ROWTYPE`, `EXCEPTION` sections, and `RAISE_APPLICATION_ERROR` per course rubric where applicable.
 
-```text
-Role: Senior Oracle PL/SQL developer for COMP214.
+---
 
-Project: Nexus Commerce — GPU e-commerce; seller is us (no marketplace).
+## License / academic use
 
-Schema tables: ADMINS, CUSTOMERS, CATEGORIES, PRODUCTS, ORDERS, ORDER_ITEMS, ORDER_STATUS_HISTORY, PRICE_AUDIT_LOG.
-
-Sequences include: seq_admin_id, seq_customer_id, seq_category_id, seq_product_id, seq_order_id, seq_order_item_id, seq_history_id, seq_audit_id.
-
-Use %TYPE / %ROWTYPE, EXCEPTION blocks per course rubric, and RAISE_APPLICATION_ERROR for business rules. Scripts are under sql_scripts/ (run 02–11 in order).
-
-Do not change table designs unless the user explicitly asks.
-```
+Project structure intended for **educational submission** (COMP214). Do not commit `.env` files with real passwords.
