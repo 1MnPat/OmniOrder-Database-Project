@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>NEXUS - GPU Catalog</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+                  "secondary-container": "#63befe",
+                  "outline-variant": "#c1c6d7",
+                  "tertiary-fixed-dim": "#53e16f",
+                  "surface-dim": "#d9dade",
+                  "primary": "#0058bc",
+                  "primary-container": "#0070eb",
+                  "surface": "#f9f9fe",
+                  "on-secondary-container": "#004c71",
+                  "inverse-primary": "#adc6ff",
+                  "on-secondary": "#ffffff",
+                  "on-surface": "#1a1c1f",
+                  "on-error-container": "#93000a",
+                  "on-tertiary-fixed-variant": "#00531c",
+                  "surface-container-highest": "#e2e2e7",
+                  "on-secondary-fixed-variant": "#004b70",
+                  "on-tertiary-fixed": "#002107",
+                  "on-tertiary": "#ffffff",
+                  "secondary-fixed-dim": "#8ecdff",
+                  "secondary": "#006494",
+                  "inverse-surface": "#2e3034",
+                  "on-primary-container": "#fefcff",
+                  "surface-variant": "#e2e2e7",
+                  "on-error": "#ffffff",
+                  "outline": "#717786",
+                  "surface-container": "#ededf2",
+                  "surface-container-lowest": "#ffffff",
+                  "secondary-fixed": "#cae6ff",
+                  "background": "#f9f9fe",
+                  "error": "#ba1a1a",
+                  "error-container": "#ffdad6",
+                  "primary-fixed": "#d8e2ff",
+                  "tertiary": "#006b27",
+                  "on-primary-fixed": "#001a41",
+                  "on-tertiary-container": "#f7fff2",
+                  "surface-container-high": "#e8e8ed",
+                  "surface-bright": "#f9f9fe",
+                  "on-background": "#1a1c1f",
+                  "surface-tint": "#005bc1",
+                  "on-primary": "#ffffff",
+                  "tertiary-fixed": "#72fe88",
+                  "on-surface-variant": "#414755",
+                  "primary-fixed-dim": "#adc6ff",
+                  "on-primary-fixed-variant": "#004493",
+                  "tertiary-container": "#008733",
+                  "on-secondary-fixed": "#001e30",
+                  "surface-container-low": "#f3f3f8",
+                  "inverse-on-surface": "#f0f0f5"
+          },
+          "borderRadius": {
+                  "DEFAULT": "0.25rem",
+                  "lg": "0.5rem",
+                  "xl": "0.75rem",
+                  "full": "9999px"
+          },
+          "fontFamily": {
+                  "headline": ["Inter", "SF Pro Display", "sans-serif"],
+                  "body": ["Inter", "SF Pro Text", "sans-serif"],
+                  "label": ["Inter", "SF Pro Text", "sans-serif"]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .pb-safe {
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+    body {
+      -webkit-tap-highlight-color: transparent;
+      font-family: 'Inter', sans-serif;
+    }
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface">
+<!-- TopAppBar Component -->
+<header class="fixed top-0 w-full z-50 bg-white/72 dark:bg-black/72 backdrop-blur-xl">
+<div class="flex justify-between items-center px-6 h-16 w-full">
+<button class="text-slate-500 dark:text-slate-400 hover:opacity-80 transition-opacity active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<span class="text-xl font-bold tracking-tighter text-slate-900 dark:text-white" style="font-family: 'SF Pro Display'; letter-spacing: -0.05em;">NEXUS</span>
+<button class="text-slate-500 dark:text-slate-400 hover:opacity-80 transition-opacity active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+</button>
+</div>
+</header>
+<main class="pt-20 pb-24 px-4 space-y-6">
+<!-- Hero Branding (Asymmetric Layout) -->
+<section class="mt-4">
+<h1 class="text-[3.5rem] leading-[1] font-bold tracking-tighter text-on-surface" style="font-family: 'SF Pro Display';">GPU<br/>Catalog.</h1>
+<p class="text-on-surface-variant mt-3 max-w-[280px]" style="font-family: 'SF Pro Text';">The most powerful hardware, curated for the modern artisan.</p>
+</section>
+<!-- Sticky Search Bar -->
+<div class="sticky top-[72px] z-40 py-2">
+<div class="relative group">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-outline" data-icon="search">search</span>
+</div>
+<input class="block w-full pl-11 pr-4 py-3 bg-surface-container-highest border-none rounded-xl focus:ring-2 focus:ring-primary/20 placeholder-outline text-on-surface" placeholder="Search architecture or series..." type="text"/>
+</div>
+</div>
+<!-- Filter Bar (Horizontal Chips) -->
+<div class="flex space-x-2 overflow-x-auto hide-scrollbar -mx-4 px-4 pb-2">
+<button class="whitespace-nowrap px-6 py-2 bg-primary text-on-primary rounded-full font-medium text-sm transition-all duration-200">All Units</button>
+<button class="whitespace-nowrap px-6 py-2 bg-surface-container-high text-on-surface-variant rounded-full font-medium text-sm hover:bg-surface-container-highest transition-all duration-200">Gaming</button>
+<button class="whitespace-nowrap px-6 py-2 bg-surface-container-high text-on-surface-variant rounded-full font-medium text-sm hover:bg-surface-container-highest transition-all duration-200">Workstation</button>
+<button class="whitespace-nowrap px-6 py-2 bg-surface-container-high text-on-surface-variant rounded-full font-medium text-sm hover:bg-surface-container-highest transition-all duration-200">Professional</button>
+<button class="whitespace-nowrap px-6 py-2 bg-surface-container-high text-on-surface-variant rounded-full font-medium text-sm hover:bg-surface-container-highest transition-all duration-200">AI Compute</button>
+</div>
+<!-- Product Grid -->
+<div class="grid grid-cols-1 gap-8">
+<!-- GPU Card 1 -->
+<article class="relative group">
+<div class="bg-surface-container-low rounded-[2rem] p-6 pt-0 overflow-visible transition-all duration-300">
+<div class="relative -mt-8 mb-4">
+<img alt="High-end Graphics Card" class="w-full h-48 object-contain drop-shadow-2xl transition-transform duration-500 group-hover:scale-105" data-alt="Modern black and silver graphics card with dual fans and RGB lighting accents on a clean studio background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcc_klORdhNNua25OZXrem7hwAdWh-aSR6uCMhB_305hx5d-aM7sW5eVHkdOR4oQgGKaF4SDr0fd9AYq--5Kgb2ZY2691OSplvo_X4g30zZIy3ENI2sPT_LVmJPuaTuojNxK8iIWT3Msm0fRfRvHlr5mu1_mW9AJ2uu35ku1aQliMzzvAEvGxC6F_0ltCiV612IzSCnSGyQq-5EUiFUAeHgPf4CigZPxI8DokIIYPUvo5YwE3hTet1sAi5uqFZfKkNN15BI8Qeq9Q"/>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-start">
+<span class="text-[0.75rem] font-medium tracking-[0.02em] text-primary uppercase" style="font-family: 'SF Pro Text';">Gaming Series</span>
+<span class="bg-tertiary-fixed text-on-tertiary-fixed px-2 py-0.5 rounded-full text-[10px] font-bold">IN STOCK</span>
+</div>
+<h3 class="text-[1.375rem] font-semibold text-on-surface mt-1" style="font-family: 'SF Pro Display';">RTX 4090 Titan</h3>
+<div class="mt-4 flex items-center justify-between">
+<div>
+<p class="text-on-surface-variant text-xs mb-0.5">Price</p>
+<p class="text-xl font-bold text-on-surface">$1,599.00</p>
+</div>
+<button class="bg-gradient-to-br from-primary to-primary-container text-white h-12 w-12 rounded-xl flex items-center justify-center shadow-lg active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="add_shopping_cart">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+</article>
+<!-- GPU Card 2 -->
+<article class="relative group">
+<div class="bg-surface-container-low rounded-[2rem] p-6 pt-0 overflow-visible transition-all duration-300">
+<div class="relative -mt-8 mb-4">
+<img alt="Professional Workstation Card" class="w-full h-48 object-contain drop-shadow-2xl transition-transform duration-500 group-hover:scale-105" data-alt="Sleek minimalist gold and black professional workstation GPU with single blower fan architectural design" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCfkQ82AapbFQQtef7gTNc-tK95VHJk7xJ7ceTeK4YImjYcn7q4tK_Tt9R4c-hn_XP_3XGPfsQWKPUpUfBgrU6z5TkUx9aewR3cOLWVV3oPBr-fJB3-hW88o9ZxmplhKuS1hE9Sphjv90FbYmGNnK1Jbc3QO6XMENuXk7eYyCchgtN6WzE7T8YhMU0sPXCt2x4NwjrZEIRfcc1FL9FrY347EltQMFieuRVqwDLkth1LztF9-1eIvkAV0_NDVHr96Sa_fJ8DLkI6r0"/>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-start">
+<span class="text-[0.75rem] font-medium tracking-[0.02em] text-tertiary uppercase" style="font-family: 'SF Pro Text';">Workstation</span>
+<span class="bg-error-container text-on-error-container px-2 py-0.5 rounded-full text-[10px] font-bold">LOW STOCK</span>
+</div>
+<h3 class="text-[1.375rem] font-semibold text-on-surface mt-1" style="font-family: 'SF Pro Display';">Nvidia RTX 6000 Ada</h3>
+<div class="mt-4 flex items-center justify-between">
+<div>
+<p class="text-on-surface-variant text-xs mb-0.5">Price</p>
+<p class="text-xl font-bold text-on-surface">$6,799.00</p>
+</div>
+<button class="bg-gradient-to-br from-primary to-primary-container text-white h-12 w-12 rounded-xl flex items-center justify-center shadow-lg active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="add_shopping_cart">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+</article>
+<!-- GPU Card 3 -->
+<article class="relative group">
+<div class="bg-surface-container-low rounded-[2rem] p-6 pt-0 overflow-visible transition-all duration-300">
+<div class="relative -mt-8 mb-4">
+<img alt="Enthusiast GPU" class="w-full h-48 object-contain drop-shadow-2xl transition-transform duration-500 group-hover:scale-105" data-alt="Modern white gaming graphics card with translucent fans and metallic accents for high performance PC building" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWZQBJP14Bgzrn4JBCDHuEj2EaiaBxvbjJyO8bkchGjY6lPbt4ZxdGFnaft6vbNUMMk6khp4GyYE1WuIf_lbDP6jwaT2ZYqxwIK3ZigieQSe_VdWn5_KDQ1b5aVoMHILhmOc2PNttpYUfGk8jRUkBdh0wc1i8qt-QWswYiMFY9AXT4FHeUlp6t2-bvxtYCPnEJzxg7mxX1PkDj_5hNg8JjJ7WO7cJvwClIacagzDkJUzemPEjpzt-Nu91ztgFqu1HFCIQLk30VdsY"/>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-start">
+<span class="text-[0.75rem] font-medium tracking-[0.02em] text-primary uppercase" style="font-family: 'SF Pro Text';">Gaming Series</span>
+<span class="bg-tertiary-fixed text-on-tertiary-fixed px-2 py-0.5 rounded-full text-[10px] font-bold">IN STOCK</span>
+</div>
+<h3 class="text-[1.375rem] font-semibold text-on-surface mt-1" style="font-family: 'SF Pro Display';">Radeon RX 7900 XTX</h3>
+<div class="mt-4 flex items-center justify-between">
+<div>
+<p class="text-on-surface-variant text-xs mb-0.5">Price</p>
+<p class="text-xl font-bold text-on-surface">$949.00</p>
+</div>
+<button class="bg-gradient-to-br from-primary to-primary-container text-white h-12 w-12 rounded-xl flex items-center justify-center shadow-lg active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="add_shopping_cart">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+</article>
+</div>
+</main>
+<!-- BottomNavBar Component -->
+<nav class="fixed bottom-0 w-full z-50 pb-safe bg-white/72 dark:bg-black/72 backdrop-blur-xl border-t border-slate-200/20 dark:border-slate-800/20">
+<div class="flex justify-around items-center w-full h-16 px-4">
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 hover:bg-slate-100/50 dark:hover:bg-slate-800/50 transition-transform duration-150 active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="text-[0.75rem] font-medium mt-0.5" style="font-family: 'SF Pro Text';">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-blue-600 dark:text-blue-400 font-semibold hover:bg-slate-100/50 dark:hover:bg-slate-800/50 transition-transform duration-150 active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="grid_view" style="font-variation-settings: 'FILL' 1;">grid_view</span>
+<span class="text-[0.75rem] mt-0.5" style="font-family: 'SF Pro Text';">Catalog</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 hover:bg-slate-100/50 dark:hover:bg-slate-800/50 transition-transform duration-150 active:scale-95 relative" href="#">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+<span class="absolute -top-1 -right-1 bg-primary text-white text-[8px] h-3.5 w-3.5 flex items-center justify-center rounded-full font-bold">2</span>
+<span class="text-[0.75rem] mt-0.5" style="font-family: 'SF Pro Text';">Cart</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 hover:bg-slate-100/50 dark:hover:bg-slate-800/50 transition-transform duration-150 active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="package_2">package_2</span>
+<span class="text-[0.75rem] mt-0.5" style="font-family: 'SF Pro Text';">Orders</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 hover:bg-slate-100/50 dark:hover:bg-slate-800/50 transition-transform duration-150 active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="text-[0.75rem] mt-0.5" style="font-family: 'SF Pro Text';">Account</span>
+</a>
+</div>
+</nav>
+</body></html>

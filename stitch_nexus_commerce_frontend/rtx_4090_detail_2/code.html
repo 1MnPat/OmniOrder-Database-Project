@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-container": "#63befe",
+                    "outline-variant": "#c1c6d7",
+                    "tertiary-fixed-dim": "#53e16f",
+                    "surface-dim": "#d9dade",
+                    "primary": "#0058bc",
+                    "primary-container": "#0070eb",
+                    "surface": "#f9f9fe",
+                    "on-secondary-container": "#004c71",
+                    "inverse-primary": "#adc6ff",
+                    "on-secondary": "#ffffff",
+                    "on-surface": "#1a1c1f",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-fixed-variant": "#00531c",
+                    "surface-container-highest": "#e2e2e7",
+                    "on-secondary-fixed-variant": "#004b70",
+                    "on-tertiary-fixed": "#002107",
+                    "on-tertiary": "#ffffff",
+                    "secondary-fixed-dim": "#8ecdff",
+                    "secondary": "#006494",
+                    "inverse-surface": "#2e3034",
+                    "on-primary-container": "#fefcff",
+                    "surface-variant": "#e2e2e7",
+                    "on-error": "#ffffff",
+                    "outline": "#717786",
+                    "surface-container": "#ededf2",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-fixed": "#cae6ff",
+                    "background": "#f9f9fe",
+                    "error": "#ba1a1a",
+                    "error-container": "#ffdad6",
+                    "primary-fixed": "#d8e2ff",
+                    "tertiary": "#006b27",
+                    "on-primary-fixed": "#001a41",
+                    "on-tertiary-container": "#f7fff2",
+                    "surface-container-high": "#e8e8ed",
+                    "surface-bright": "#f9f9fe",
+                    "on-background": "#1a1c1f",
+                    "surface-tint": "#005bc1",
+                    "on-primary": "#ffffff",
+                    "tertiary-fixed": "#72fe88",
+                    "on-surface-variant": "#414755",
+                    "primary-fixed-dim": "#adc6ff",
+                    "on-primary-fixed-variant": "#004493",
+                    "tertiary-container": "#008733",
+                    "on-secondary-fixed": "#001e30",
+                    "surface-container-low": "#f3f3f8",
+                    "inverse-on-surface": "#f0f0f5"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Inter", "sans-serif"],
+                    "body": ["Inter", "sans-serif"],
+                    "label": ["Inter", "sans-serif"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .ios-blur {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .tracking-tighter-premium {
+            letter-spacing: -0.05em;
+        }
+        .tracking-tight-editorial {
+            letter-spacing: -0.02em;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface selection:bg-primary/20">
+<!-- Top AppBar (From Shared Components JSON) -->
+<header class="fixed top-0 w-full z-50 bg-white/72 dark:bg-black/72 backdrop-blur-xl flex justify-between items-center px-6 h-16 w-full">
+<div class="flex items-center gap-4">
+<button class="text-slate-900 dark:text-white active:scale-95 transition-transform duration-200">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="text-xl font-bold tracking-tighter text-slate-900 dark:text-white">NEXUS</h1>
+</div>
+<div class="flex items-center gap-2">
+<button class="text-slate-500 dark:text-slate-400 hover:opacity-80 transition-opacity active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+</button>
+</div>
+</header>
+<main class="pt-16 pb-32">
+<!-- Hero Image Gallery -->
+<section class="px-4 mt-4">
+<div class="aspect-square w-full rounded-[2.5rem] bg-[#F5F5F7] flex items-center justify-center overflow-hidden relative group">
+<img alt="GPU Product" class="w-4/5 h-auto object-contain transform group-hover:scale-105 transition-transform duration-700" data-alt="Close-up studio shot of a high-end graphics card with metallic textures and glowing LED accents on a clean light grey background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaOW05Ya3J-BUlLTZxO60rwJmG7Xh6Czki8mgAGcgmuXRoukFNPWhYuImVYSc_VA0qfnDPefjEop10QDcn2Em9tC7IJ0Iec8n2VOJs9MoLuCDGKPreRHiHPZFwSpvVMS1Q7mvGyosepe3Rz_V1ELsY8fwd9c5JeTYumKsFEArupaxEKubzaHDq4E9neTKDrND6hrKo6Oi8i8EQzVVgrqg3gnX1iAEOmQx6z3TFU8XbprHmTgDOIB-wIn1vIXZixI399QjgenJmu0M"/>
+<div class="absolute bottom-6 flex gap-2">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="w-2 h-2 rounded-full bg-outline-variant/40"></span>
+<span class="w-2 h-2 rounded-full bg-outline-variant/40"></span>
+</div>
+</div>
+</section>
+<!-- Product Header Information -->
+<section class="px-6 mt-8 space-y-3">
+<div class="flex justify-between items-start">
+<div>
+<p class="text-primary font-semibold tracking-wide text-xs uppercase mb-1">High Performance Series</p>
+<h2 class="text-3xl font-bold text-on-surface tracking-tight-editorial leading-tight">NEXUS Ultra Pro X-9000</h2>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-2xl font-bold text-[#007AFF] tracking-tighter-premium">$2,499.00</span>
+<span class="px-2.5 py-0.5 rounded-full bg-tertiary-fixed-dim/20 text-tertiary font-medium text-[11px] flex items-center gap-1 uppercase tracking-wider">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span> In Stock
+                </span>
+</div>
+</section>
+<!-- Description -->
+<section class="px-6 mt-6">
+<p class="text-[15px] leading-relaxed text-on-surface-variant font-normal">
+                Engineered for the elite. The X-9000 series delivers unprecedented ray-tracing capabilities and neural rendering speeds, redefining the boundaries of real-time visual fidelity and heavy compute workloads.
+            </p>
+</section>
+<!-- Configuration Selector (Stepper) -->
+<section class="px-6 mt-8 flex items-center justify-between">
+<span class="font-semibold text-sm">Quantity</span>
+<div class="flex items-center bg-surface-container-high rounded-full p-1 min-w-[120px] justify-between">
+<button class="w-8 h-8 flex items-center justify-center rounded-full bg-surface-container-lowest shadow-sm active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-sm" data-icon="remove">remove</span>
+</button>
+<span class="font-bold text-sm px-4">1</span>
+<button class="w-8 h-8 flex items-center justify-center rounded-full bg-surface-container-lowest shadow-sm active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+</button>
+</div>
+</section>
+<!-- Technical Specifications (iOS Grouped List Style) -->
+<section class="mt-10 px-6">
+<h3 class="text-xs font-semibold text-outline mb-3 uppercase tracking-widest px-1">Technical Specifications</h3>
+<div class="bg-surface-container-low rounded-2xl overflow-hidden">
+<div class="flex items-center justify-between px-4 py-4 border-b border-outline-variant/10">
+<span class="text-[15px] text-on-surface-variant">Compute Cores</span>
+<span class="text-[15px] font-semibold">16,384 CUDA</span>
+</div>
+<div class="flex items-center justify-between px-4 py-4 border-b border-outline-variant/10">
+<span class="text-[15px] text-on-surface-variant">Video Memory</span>
+<span class="text-[15px] font-semibold">24GB GDDR6X</span>
+</div>
+<div class="flex items-center justify-between px-4 py-4 border-b border-outline-variant/10">
+<span class="text-[15px] text-on-surface-variant">Boost Clock</span>
+<span class="text-[15px] font-semibold">2.52 GHz</span>
+</div>
+<div class="flex items-center justify-between px-4 py-4">
+<span class="text-[15px] text-on-surface-variant">Interface</span>
+<span class="text-[15px] font-semibold">PCIe 5.0</span>
+</div>
+</div>
+</section>
+<!-- Shipping Info -->
+<section class="px-6 mt-8">
+<div class="flex gap-4 p-4 rounded-2xl bg-primary/5 items-center">
+<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="local_shipping">local_shipping</span>
+</div>
+<div>
+<p class="text-sm font-bold">Express Shipping</p>
+<p class="text-xs text-on-surface-variant">Delivered by Tuesday, Oct 24</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Sticky Bottom CTA Bar -->
+<div class="fixed bottom-0 left-0 right-0 z-50 bg-white/80 dark:bg-black/80 backdrop-blur-2xl border-t border-outline-variant/10 px-6 pt-4 pb-8 flex items-center justify-between gap-4">
+<div class="flex flex-col">
+<span class="text-[10px] text-outline font-bold uppercase tracking-widest">Total Price</span>
+<span class="text-xl font-bold text-on-surface tracking-tighter-premium">$2,499.00</span>
+</div>
+<button class="flex-1 h-14 bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold rounded-full text-[15px] shadow-lg shadow-primary/20 active:scale-95 transition-transform duration-150">
+            Add to Bag
+        </button>
+</div>
+<!-- Hidden BottomNavBar (Suppressed as per task focus rules for checkout/details) -->
+<nav class="hidden">
+<!-- Kept for semantic reference only -->
+</nav>
+</body></html>

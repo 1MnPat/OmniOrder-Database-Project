@@ -8,10 +8,10 @@
 
 -- ADMINS (2)
 INSERT INTO admins (admin_id, email, password, first_name, last_name)
-VALUES (seq_admin_id.NEXTVAL, 'owner@nexusgpu.ca', 'HASH_OWNER_01', 'Alex', 'Chen');
+VALUES (seq_admin_id.NEXTVAL, 'yaksh@nexusgpu.com', 'HASH_OWNER_01', 'Yaksh', 'Patel');
 
 INSERT INTO admins (admin_id, email, password, first_name, last_name)
-VALUES (seq_admin_id.NEXTVAL, 'ops@nexusgpu.ca', 'HASH_OPS_02', 'Jordan', 'Patel');
+VALUES (seq_admin_id.NEXTVAL, 'naeem@nexusgpu.com', 'HASH_OPS_02', 'Mohammed', 'Patel');
 
 -- CUSTOMERS (10) — emails must not match ADMINS
 INSERT INTO customers (customer_id, email, password, first_name, last_name, phone, shipping_address, city, postal_code, country)

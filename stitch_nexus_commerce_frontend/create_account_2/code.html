@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Create Account | NEXUS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary": "#0058bc",
+                    "outline-variant": "#c1c6d7",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-fixed-variant": "#00531c",
+                    "surface-tint": "#005bc1",
+                    "on-secondary-container": "#004c71",
+                    "inverse-surface": "#2e3034",
+                    "tertiary-fixed": "#72fe88",
+                    "error-container": "#ffdad6",
+                    "error": "#ba1a1a",
+                    "on-secondary": "#ffffff",
+                    "inverse-on-surface": "#f0f0f5",
+                    "on-error-container": "#93000a",
+                    "tertiary": "#006b27",
+                    "on-surface": "#1a1c1f",
+                    "inverse-primary": "#adc6ff",
+                    "on-tertiary": "#ffffff",
+                    "surface-bright": "#f9f9fe",
+                    "on-primary-fixed-variant": "#004493",
+                    "on-primary-fixed": "#001a41",
+                    "secondary-fixed": "#cae6ff",
+                    "primary-fixed": "#d8e2ff",
+                    "on-secondary-fixed-variant": "#004b70",
+                    "surface-container-low": "#f3f3f8",
+                    "on-primary": "#ffffff",
+                    "surface-variant": "#e2e2e7",
+                    "on-primary-container": "#fefcff",
+                    "tertiary-container": "#008733",
+                    "surface-container": "#ededf2",
+                    "surface-container-high": "#e8e8ed",
+                    "surface-container-highest": "#e2e2e7",
+                    "surface-dim": "#d9dade",
+                    "secondary": "#006494",
+                    "on-secondary-fixed": "#001e30",
+                    "secondary-container": "#63befe",
+                    "primary-fixed-dim": "#adc6ff",
+                    "on-tertiary-container": "#f7fff2",
+                    "on-tertiary-fixed": "#002107",
+                    "on-background": "#1a1c1f",
+                    "surface": "#f9f9fe",
+                    "background": "#f9f9fe",
+                    "primary-container": "#0070eb",
+                    "on-surface-variant": "#414755",
+                    "tertiary-fixed-dim": "#53e16f",
+                    "secondary-fixed-dim": "#8ecdff",
+                    "outline": "#717786",
+                    "on-error": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Inter", "sans-serif"],
+                    "body": ["Inter", "sans-serif"],
+                    "label": ["Inter", "sans-serif"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .glass-header { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+        .ios-input-group { position: relative; }
+        .ios-input-group > div:not(:last-child) { border-bottom: 0.5px solid rgba(193, 198, 215, 0.3); }
+        input:focus { outline: none !important; box-shadow: none !important; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface selection:bg-primary/20">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-white/72 dark:bg-black/72 backdrop-blur-xl flex items-center justify-between px-6 h-16 w-full shadow-none">
+<div class="flex items-center">
+<span class="material-symbols-outlined text-on-surface transition-opacity active:scale-95 duration-200 cursor-pointer" data-icon="close">close</span>
+</div>
+<div class="font-['SF_Pro_Display'] tracking-tighter font-bold text-2xl text-slate-900 dark:text-slate-50">
+            NEXUS
+        </div>
+<div class="w-6"></div> <!-- Spacer for centering -->
+</header>
+<main class="min-h-screen pt-24 pb-32 flex items-center justify-center px-4 sm:px-6">
+<div class="w-full max-w-[440px]">
+<!-- Header Section -->
+<div class="mb-8 text-center sm:text-left">
+<h1 class="text-[28px] font-bold leading-tight tracking-tight text-on-surface font-headline">Create Account</h1>
+<p class="mt-2 text-on-surface-variant font-body leading-relaxed">Join the Nexus Gallery for exclusive access to premium hardware.</p>
+</div>
+<!-- Registration Form -->
+<form class="space-y-8">
+<!-- Group 1: Account Info -->
+<div class="space-y-2">
+<label class="text-[13px] font-semibold text-on-surface-variant/80 uppercase tracking-wider px-4">Account info</label>
+<div class="bg-surface-container-lowest rounded-[20px] overflow-hidden ios-input-group">
+<div class="flex items-center px-4 py-4 bg-white">
+<span class="material-symbols-outlined text-outline-variant mr-3 text-[20px]" data-icon="person">person</span>
+<input class="flex-1 bg-transparent border-none p-0 text-[17px] focus:ring-0 placeholder:text-outline-variant" placeholder="Full Name" type="text"/>
+</div>
+<div class="flex items-center px-4 py-4 bg-white">
+<span class="material-symbols-outlined text-outline-variant mr-3 text-[20px]" data-icon="mail">mail</span>
+<input class="flex-1 bg-transparent border-none p-0 text-[17px] focus:ring-0 placeholder:text-outline-variant" placeholder="Email" type="email"/>
+</div>
+<div class="flex items-center px-4 py-4 bg-white">
+<span class="material-symbols-outlined text-outline-variant mr-3 text-[20px]" data-icon="lock">lock</span>
+<input class="flex-1 bg-transparent border-none p-0 text-[17px] focus:ring-0 placeholder:text-outline-variant" placeholder="Password" type="password"/>
+</div>
+</div>
+</div>
+<!-- Group 2: Shipping Details -->
+<div class="space-y-2">
+<label class="text-[13px] font-semibold text-on-surface-variant/80 uppercase tracking-wider px-4">Shipping details</label>
+<div class="bg-surface-container-lowest rounded-[20px] overflow-hidden ios-input-group">
+<div class="flex items-center px-4 py-4 bg-white">
+<span class="material-symbols-outlined text-outline-variant mr-3 text-[20px]" data-icon="home">home</span>
+<input class="flex-1 bg-transparent border-none p-0 text-[17px] focus:ring-0 placeholder:text-outline-variant" placeholder="Address" type="text"/>
+</div>
+<div class="flex items-center px-4 py-4 bg-white">
+<span class="material-symbols-outlined text-outline-variant mr-3 text-[20px]" data-icon="location_city">location_city</span>
+<input class="flex-1 bg-transparent border-none p-0 text-[17px] focus:ring-0 placeholder:text-outline-variant" placeholder="City" type="text"/>
+</div>
+<div class="flex items-center px-4 py-4 bg-white">
+<span class="material-symbols-outlined text-outline-variant mr-3 text-[20px]" data-icon="markunread_mailbox">markunread_mailbox</span>
+<input class="flex-1 bg-transparent border-none p-0 text-[17px] focus:ring-0 placeholder:text-outline-variant" placeholder="Zip Code" type="text"/>
+</div>
+</div>
+</div>
+<!-- Actions -->
+<div class="pt-4 space-y-4">
+<button class="w-full bg-gradient-to-br from-primary to-primary-container text-white py-4 px-6 rounded-xl font-semibold text-[17px] shadow-lg shadow-primary/20 active:scale-95 transition-all duration-200" type="submit">
+                        Create Account
+                    </button>
+<div class="text-center">
+<a class="text-primary font-medium text-[15px] hover:underline transition-all" href="#">
+                            Already have an account? Sign in
+                        </a>
+</div>
+</div>
+</form>
+<!-- Decorative Element: Editorial Image -->
+<div class="mt-16 relative overflow-hidden rounded-[24px] aspect-[16/9] shadow-2xl">
+<img alt="Premium GPU Interior" class="w-full h-full object-cover" data-alt="Close-up of a futuristic high-performance GPU with sleek metallic accents and soft ambient blue internal lighting in a minimalist setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgj8gr093d3tLSmWPM0dXQQWs61LtgRmIfzIFDyee47r6Garzn34mWk8Xd5YP09FDL7ARUtG5AlaL0lRBq3R331fYhnT5TuG4xvwacIkIeU4ZjdNtdRwOCAq6C-3595n1Vw-9KcqwZ9cec2geETXJX2mKT_hkirzIxNeSM_Q1xFYorakKLgWYtnLy57TQY-Ne6IqeZX8qMBtf3EUwK0k38t_GnMsHhROsvP-pnh1ouZOsGJRiiZG5_PEOKMjnMedtRF3via-T7JrU"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
+<p class="text-white/90 text-sm font-medium tracking-wide">Nexus Performance Series</p>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Suppressed for focused task, but following JSON destination count for logic) -->
+<!-- Not visible due to focused 'Create Account' journey per Shell Visibility & Relevance rule -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 bg-white/72 dark:bg-black/72 backdrop-blur-xl flex justify-around items-center h-20 pb-safe px-8 w-full shadow-[0_-12px_40px_rgba(0,0,0,0.08)] rounded-t-3xl">
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-600 active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="login">login</span>
+<span class="font-['SF_Pro_Text'] text-[11px] font-medium">Sign In</span>
+</a>
+<a class="flex flex-col items-center justify-center text-blue-600 dark:text-blue-400 font-semibold active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="person_add" style="font-variation-settings: 'FILL' 1;">person_add</span>
+<span class="font-['SF_Pro_Text'] text-[11px] font-medium">Create Account</span>
+</a>
+</nav>
+</body></html>
