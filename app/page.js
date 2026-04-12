@@ -3,26 +3,27 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { ProductCard } from '@/components/ProductCard';
+import { useAuth } from '@/contexts/auth-context';
 
 export default function HomePage() {
+  const { ready, isAuthenticated, isCustomer, isAdmin } = useAuth();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    let cancelled = false;
-    fetch('/api/products?limit=6')
+    const ac = new AbortController();
+    fetch('/api/products?limit=6', { signal: ac.signal })
       .then((r) => r.json())
       .then((body) => {
-        if (!cancelled && body.success && body.data?.data) {
+        if (!ac.signal.aborted && body.success && body.data?.data) {
           setProducts(body.data.data);
         }
       })
+      .catch(() => {})
       .finally(() => {
-        if (!cancelled) setLoading(false);
+        if (!ac.signal.aborted) setLoading(false);
       });
-    return () => {
-      cancelled = true;
-    };
+    return () => ac.abort();
   }, []);
 
   return (
@@ -42,16 +43,34 @@ export default function HomePage() {
               Editorial layouts meet real inventory. Browse our GPU catalog —
               asymmetry, space, and hardware that reads like industrial art.
             </p>
-            <div className="mt-10 flex flex-wrap gap-4">
+            <div className="mt-10 flex min-h-[3rem] flex-wrap items-center gap-4">
               <Link href="/products" className="btn-primary inline-block text-center">
                 Shop catalog
               </Link>
-              <Link
-                href="/register"
-                className="btn-secondary inline-block text-center"
-              >
-                Create account
-              </Link>
+              {!ready ? (
+                <span className="inline-block h-12 w-44 animate-pulse rounded-xl bg-surface-container" />
+              ) : !isAuthenticated ? (
+                <Link
+                  href="/register"
+                  className="btn-secondary inline-block text-center"
+                >
+                  Create account
+                </Link>
+              ) : isCustomer ? (
+                <Link
+                  href="/account"
+                  className="btn-secondary inline-block text-center"
+                >
+                  Your account
+                </Link>
+              ) : isAdmin ? (
+                <Link
+                  href="/admin"
+                  className="btn-secondary inline-block text-center"
+                >
+                  Admin dashboard
+                </Link>
+              ) : null}
             </div>
           </div>
           <div className="relative flex flex-1 justify-end lg:min-h-[360px]">
@@ -101,8 +120,12 @@ export default function HomePage() {
             </p>
           ) : (
             <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-              {products.map((p) => (
-                <ProductCard key={p.product_id} product={p} />
+              {products.map((p, i) => (
+                <ProductCard
+                  key={p.product_id}
+                  product={p}
+                  priority={i === 0}
+                />
               ))}
             </div>
           )}

@@ -1,7 +1,4 @@
--- =============================================================================
--- Nexus Commerce — triggers (4), each with EXCEPTION section
--- Prerequisites: tables, sequences, pkg_nc_audit_ctx. Next: 07_functions.sql
--- =============================================================================
+-- Four triggers. Needs tables, sequences, pkg_nc_audit_ctx. Next: 07_functions.sql
 
 CREATE OR REPLACE TRIGGER trg_order_status_default
     AFTER INSERT ON ORDERS
@@ -100,7 +97,6 @@ BEGIN
     END IF;
 EXCEPTION
     WHEN OTHERS THEN
-        -- For any unhandled exception, log and raise a general application error.
         DBMS_OUTPUT.PUT_LINE('trg_no_shared_email error (unexpected): ' || SQLERRM);
         RAISE_APPLICATION_ERROR(-20998, 'Unexpected error during customer email validation: ' || SQLERRM);
 
@@ -108,4 +104,4 @@ EXCEPTION
 END;
 /
 
-PROMPT Triggers created.
+PROMPT Triggers OK.

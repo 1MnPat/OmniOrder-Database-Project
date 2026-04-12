@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/auth-context';
 import { useCart } from '@/contexts/cart-context';
+import { ProductImageThumb } from '@/components/ProductImageThumb';
 
 function formatMoney(n) {
   return new Intl.NumberFormat('en-CA', {
@@ -55,7 +56,13 @@ export default function CartPage() {
               key={line.product_id}
               className="flex flex-col gap-4 rounded-card bg-surface-container-lowest p-6 shadow-ambient sm:flex-row sm:items-center sm:justify-between"
             >
-              <div>
+              <div className="flex min-w-0 items-start gap-4">
+                <ProductImageThumb
+                  src={line.image_url}
+                  alt={line.product_name}
+                  size={72}
+                />
+                <div className="min-w-0">
                 <Link
                   href={`/products/${line.product_id}`}
                   className="text-lg font-semibold text-on-surface hover:text-primary"
@@ -65,6 +72,7 @@ export default function CartPage() {
                 <p className="text-sm text-on-surface-variant">
                   {formatMoney(line.unit_price)} each
                 </p>
+                </div>
               </div>
               <div className="flex items-center gap-4">
                 <input

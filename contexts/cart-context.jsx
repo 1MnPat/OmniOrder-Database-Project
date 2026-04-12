@@ -32,11 +32,18 @@ export function CartProvider({ children }) {
       const i = list.findIndex((x) => x.product_id === id);
       if (i >= 0) {
         const nextQty = Math.min(max, list[i].quantity + qty);
-        list[i] = { ...list[i], quantity: nextQty };
+        list[i] = {
+          ...list[i],
+          quantity: nextQty,
+          ...(product.image_url && !list[i].image_url
+            ? { image_url: product.image_url }
+            : {}),
+        };
       } else {
         list.push({
           product_id: id,
           product_name: product.product_name,
+          image_url: product.image_url || null,
           unit_price: Number(product.price),
           quantity: Math.min(max, qty),
           stock_quantity: max,

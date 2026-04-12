@@ -1,8 +1,5 @@
--- =============================================================================
--- Nexus Commerce — session context for price-change auditing (changed_by)
--- Set pkg_nc_audit_ctx.g_admin_id := <admin_id> before UPDATE PRODUCTS ... price
--- Next: 05_indexes.sql
--- =============================================================================
+-- Holds g_admin_id for price updates so the audit trigger knows who changed the price.
+-- App sets it before UPDATE products ... price. Next: 05_indexes.sql
 
 CREATE OR REPLACE PACKAGE pkg_nc_audit_ctx IS
     g_admin_id ADMINS.admin_id%TYPE;
@@ -15,4 +12,4 @@ BEGIN
 END pkg_nc_audit_ctx;
 /
 
-PROMPT Package pkg_nc_audit_ctx created.
+PROMPT Audit context package OK.

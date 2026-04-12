@@ -1,10 +1,8 @@
--- =============================================================================
--- Nexus Commerce — demo / test execution (run after 10_data.sql)
--- =============================================================================
+-- Quick tests after 10_data.sql
 
 SET SERVEROUTPUT ON SIZE UNLIMITED;
 
-PROMPT --- Test 1: Register a new customer (standalone procedure) ---
+PROMPT Test 1: register customer
 BEGIN
     sp_register_customer(
         p_email          => 'new.buyer@mail.com',
@@ -21,7 +19,7 @@ BEGIN
 END;
 /
 
-PROMPT --- Test 2: Place an order (standalone procedure) ---
+PROMPT Test 2: place order
 BEGIN
     sp_place_order(
         p_customer_id => 1,
@@ -32,7 +30,7 @@ BEGIN
 END;
 /
 
-PROMPT --- Test 3: Update order status ---
+PROMPT Test 3: order status
 BEGIN
     sp_update_order_status(
         p_order_id   => 1,
@@ -42,34 +40,34 @@ BEGIN
 END;
 /
 
-PROMPT --- Test 4: Price change fires audit trigger (set admin context first) ---
+PROMPT Test 4: price change + audit (set admin id first)
 BEGIN
     pkg_nc_audit_ctx.g_admin_id := 1;
     UPDATE products
     SET price = 1899.99
     WHERE product_id = 1;
     COMMIT;
-    DBMS_OUTPUT.PUT_LINE('Test 4 OK: price updated; audit row should exist.');
+    DBMS_OUTPUT.PUT_LINE('Test 4 OK: price updated; check price_audit_log.');
 END;
 /
 
-PROMPT --- Test 4b: Example using seq_order_id.CURRVAL in UPDATE (same session) ---
+PROMPT Test 4b: CURRVAL after place_order (same session)
 BEGIN
     sp_place_order(p_customer_id => 2, p_product_id => 8, p_quantity => 1);
     UPDATE orders
     SET total_amount = total_amount
     WHERE order_id = seq_order_id.CURRVAL;
     COMMIT;
-    DBMS_OUTPUT.PUT_LINE('Test 4b OK: noop update using seq_order_id.CURRVAL.');
+    DBMS_OUTPUT.PUT_LINE('Test 4b OK.');
 END;
 /
 
-PROMPT --- Test 5: Standalone functions ---
+PROMPT Test 5: standalone functions
 SELECT fn_get_order_total(1) AS order_1_total FROM dual;
 SELECT fn_get_customer_order_count(1) AS cust_1_orders FROM dual;
 SELECT fn_is_product_in_stock(1, 5) AS rtx4090_5_units FROM dual;
 
-PROMPT --- Test 6: Package procedures and functions ---
+PROMPT Test 6: package
 BEGIN
     pkg_nexus_commerce.sp_register_customer(
         p_email       => 'pkg.user@mail.com',
@@ -97,4 +95,8 @@ END;
 
 SELECT pkg_nexus_commerce.fn_get_order_total(3) AS pkg_order_3_total FROM dual;
 
-PROMPT --- Tests finished ---
+PROMPT Tests done.
+
+SELECT * FROM customers;
+SELECT * FROM products;
+SELECT * FROM order_items;

@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/auth-context';
 import { useCart } from '@/contexts/cart-context';
 import { api, ApiError } from '@/lib/api-client';
+import { ProductImageThumb } from '@/components/ProductImageThumb';
 
 function formatMoney(n) {
   return new Intl.NumberFormat('en-CA', {
@@ -97,12 +98,19 @@ export default function CheckoutPage() {
           {items.map((x) => (
             <li
               key={x.product_id}
-              className="flex justify-between text-sm"
+              className="flex items-center justify-between gap-3 text-sm"
             >
-              <span>
-                {x.product_name} × {x.quantity}
+              <span className="flex min-w-0 items-center gap-3">
+                <ProductImageThumb
+                  src={x.image_url}
+                  alt={x.product_name}
+                  size={48}
+                />
+                <span className="min-w-0">
+                  {x.product_name} × {x.quantity}
+                </span>
               </span>
-              <span>{formatMoney(x.unit_price * x.quantity)}</span>
+              <span className="shrink-0">{formatMoney(x.unit_price * x.quantity)}</span>
             </li>
           ))}
         </ul>

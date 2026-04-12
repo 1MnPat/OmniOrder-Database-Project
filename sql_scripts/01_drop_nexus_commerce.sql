@@ -1,8 +1,6 @@
--- =============================================================================
--- Nexus Commerce — drop all objects defined in this schema (reinstall / reset)
--- Run BEFORE 02_tables.sql when redeploying. Ignore ORA-04043/ORA-00942 if absent.
--- Suggested run order: 00_cleanup_legacy_schema.sql (optional) → this file → 02+.
--- =============================================================================
+-- Full reset: drop this project's objects before reinstalling.
+-- Run before 02_tables.sql. Ignore ORA-04043 / ORA-00942 if something is missing.
+-- Optional: 00_cleanup_legacy_schema.sql first if you still have the old course schema.
 
 DROP TRIGGER trg_order_status_default;
 DROP TRIGGER trg_price_audit;
@@ -42,4 +40,4 @@ DROP SEQUENCE seq_category_id;
 DROP SEQUENCE seq_customer_id;
 DROP SEQUENCE seq_admin_id;
 
-PROMPT Nexus Commerce drop script completed.
+PROMPT Drop script finished.

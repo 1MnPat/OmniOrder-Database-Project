@@ -1,7 +1,4 @@
--- =============================================================================
--- Nexus Commerce — CREATE TABLE (FK-safe order)
--- Prerequisites: none. Next: 03_sequences.sql
--- =============================================================================
+-- Tables (FK-safe order). Then run 03_sequences.sql.
 
 CREATE TABLE ADMINS (
     admin_id      NUMBER        CONSTRAINT pk_admins PRIMARY KEY,
@@ -42,6 +39,7 @@ CREATE TABLE PRODUCTS (
     product_id      NUMBER        CONSTRAINT pk_products PRIMARY KEY,
     product_name    VARCHAR2(100) NOT NULL,
     description     VARCHAR2(500),
+    image_url       VARCHAR2(512),
     price           NUMBER(10, 2) NOT NULL,
     stock_quantity  NUMBER        NOT NULL,
     category_id     NUMBER,
@@ -95,4 +93,4 @@ CREATE TABLE PRICE_AUDIT_LOG (
     CONSTRAINT fk_pal_admin FOREIGN KEY (changed_by) REFERENCES ADMINS (admin_id)
 );
 
-PROMPT Tables created.
+PROMPT Tables OK.

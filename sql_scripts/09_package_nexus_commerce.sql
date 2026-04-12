@@ -1,8 +1,4 @@
--- =============================================================================
--- Nexus Commerce — pkg_nexus_commerce (spec + body)
--- Prerequisites: 08_procedures.sql (optional; package is self-contained)
--- Next: 10_data.sql
--- =============================================================================
+-- pkg_nexus_commerce spec + body. Can run without 08 if you only use the package. Next: 10_data.sql
 
 CREATE OR REPLACE PACKAGE pkg_nexus_commerce IS
     g_max_order_qty CONSTANT NUMBER := 100;
@@ -399,4 +395,4 @@ CREATE OR REPLACE PACKAGE BODY pkg_nexus_commerce IS
 END pkg_nexus_commerce;
 /
 
-PROMPT Package pkg_nexus_commerce created.
+PROMPT Package OK.

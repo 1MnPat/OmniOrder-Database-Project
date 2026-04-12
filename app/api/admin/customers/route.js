@@ -9,11 +9,14 @@ function parsePagination(searchParams) {
   return { page, limit, offset };
 }
 
+/** Oracle may return quoted aliases in mixed case; normalize for JSON clients. */
 function stripPassword(row) {
-  if (!row) return row;
-  const out = { ...row };
+  if (!row || typeof row !== 'object') return row;
+  const out = {};
+  for (const [k, v] of Object.entries(row)) {
+    out[k.toLowerCase()] = v;
+  }
   delete out.password;
-  delete out.PASSWORD;
   return out;
 }
 
@@ -25,26 +28,29 @@ async function getHandler(request) {
     const { page, limit, offset } = parsePagination(searchParams);
 
     const conditions = [];
-    const binds = { offset, limit };
+    const countBinds = {};
 
     if (search) {
-      binds.search = `%${search}%`;
+      countBinds.search = `%${search}%`;
       conditions.push(
         `(LOWER(c.email) LIKE LOWER(:search) OR LOWER(c.first_name) LIKE LOWER(:search) OR LOWER(c.last_name) LIKE LOWER(:search))`
       );
     }
     if (isActive !== null && isActive !== '') {
-      binds.is_active = Number(isActive);
+      countBinds.is_active = Number(isActive);
       conditions.push('c.is_active = :is_active');
     }
 
     const whereSql = conditions.length ? `WHERE ${conditions.join(' AND ')}` : '';
 
+    // COUNT must not bind :offset / :limit — only WHERE placeholders (Oracle driver mismatch otherwise).
     const countRes = await executeQuery(
       `SELECT COUNT(*) AS "cnt" FROM customers c ${whereSql}`,
-      binds
+      countBinds
     );
     const total = Number(countRes.rows?.[0]?.cnt ?? countRes.rows?.[0]?.CNT ?? 0);
+
+    const dataBinds = { ...countBinds, offset, limit };
 
     const dataRes = await executeQuery(
       `SELECT
@@ -64,7 +70,7 @@ async function getHandler(request) {
        ${whereSql}
        ORDER BY c.customer_id
        OFFSET :offset ROWS FETCH NEXT :limit ROWS ONLY`,
-      binds
+      dataBinds
     );
 
     const customers = (dataRes.rows || []).map(stripPassword);

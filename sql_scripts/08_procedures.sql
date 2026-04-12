@@ -1,7 +1,4 @@
--- =============================================================================
--- Nexus Commerce — standalone procedures (4), cursors where required
--- Next: 09_package_nexus_commerce.sql
--- =============================================================================
+-- Four standalone procedures (cursors where needed). Next: 09_package_nexus_commerce.sql
 
 CREATE OR REPLACE PROCEDURE sp_register_customer (
     p_email          IN CUSTOMERS.email%TYPE,
@@ -221,4 +218,4 @@ EXCEPTION
 END sp_deactivate_product;
 /
 
-PROMPT Standalone procedures created.
+PROMPT Procedures OK.

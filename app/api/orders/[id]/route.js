@@ -41,7 +41,8 @@ async function getHandler(request, context) {
          oi.product_id AS "product_id",
          oi.quantity AS "quantity",
          oi.unit_price AS "unit_price",
-         p.product_name AS "product_name"
+         p.product_name AS "product_name",
+         p.image_url AS "image_url"
        FROM order_items oi
        JOIN products p ON p.product_id = oi.product_id
        WHERE oi.order_id = :id

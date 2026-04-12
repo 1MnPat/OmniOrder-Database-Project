@@ -1,5 +1,6 @@
 import oracledb from 'oracledb';
 import { executeQuery, getConnection } from '@/lib/db';
+import { getAdminFromRequest } from '@/lib/auth';
 import { requireAuth } from '@/lib/middleware';
 import { ok, badRequest, notFound, serverError } from '@/lib/response';
 
@@ -14,11 +15,15 @@ export async function GET(request, context) {
     const pid = Number(id);
     if (Number.isNaN(pid)) return notFound('Product not found');
 
+    const admin = getAdminFromRequest(request);
+    const activeClause = admin ? '' : ' AND p.is_active = 1';
+
     const res = await executeQuery(
       `SELECT
          p.product_id AS "product_id",
          p.product_name AS "product_name",
          p.description AS "description",
+         p.image_url AS "image_url",
          p.price AS "price",
          p.stock_quantity AS "stock_quantity",
          p.category_id AS "category_id",
@@ -27,7 +32,7 @@ export async function GET(request, context) {
          c.category_name AS "category_name"
        FROM products p
        JOIN categories c ON c.category_id = p.category_id
-       WHERE p.product_id = :id AND p.is_active = 1`,
+       WHERE p.product_id = :id${activeClause}`,
       { id: pid }
     );
 
@@ -51,6 +56,7 @@ async function putHandler(request, context) {
     const allowed = [
       'product_name',
       'description',
+      'image_url',
       'price',
       'stock_quantity',
       'category_id',
@@ -93,6 +99,10 @@ async function putHandler(request, context) {
       binds.description = updates.description;
       setParts.push('description = :description');
     }
+    if (updates.image_url !== undefined) {
+      binds.image_url = updates.image_url;
+      setParts.push('image_url = :image_url');
+    }
     if (updates.stock_quantity !== undefined) {
       binds.stock_quantity = updates.stock_quantity;
       setParts.push('stock_quantity = :stock_quantity');
@@ -102,7 +112,15 @@ async function putHandler(request, context) {
       setParts.push('category_id = :category_id');
     }
     if (updates.is_active !== undefined) {
-      binds.is_active = updates.is_active;
+      const ia = updates.is_active;
+      binds.is_active =
+        typeof ia === 'boolean'
+          ? ia
+            ? 1
+            : 0
+          : Number(ia) === 1
+            ? 1
+            : 0;
       setParts.push('is_active = :is_active');
     }
     if (hasPrice) {

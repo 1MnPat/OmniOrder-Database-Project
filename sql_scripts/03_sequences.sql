@@ -1,6 +1,4 @@
--- =============================================================================
--- Nexus Commerce — sequences (8). Next: 04_package_audit_context.sql
--- =============================================================================
+-- Sequences (8). Next: 04_package_audit_context.sql
 
 CREATE SEQUENCE seq_admin_id      START WITH 1 INCREMENT BY 1 NOCACHE NOCYCLE;
 CREATE SEQUENCE seq_customer_id   START WITH 1 INCREMENT BY 1 NOCACHE NOCYCLE;
@@ -11,4 +9,4 @@ CREATE SEQUENCE seq_order_item_id START WITH 1 INCREMENT BY 1 NOCACHE NOCYCLE;
 CREATE SEQUENCE seq_history_id    START WITH 1 INCREMENT BY 1 NOCACHE NOCYCLE;
 CREATE SEQUENCE seq_audit_id      START WITH 1 INCREMENT BY 1 NOCACHE NOCYCLE;
 
-PROMPT Sequences created.
+PROMPT Sequences OK.

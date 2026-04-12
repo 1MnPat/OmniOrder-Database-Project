@@ -1,7 +1,4 @@
--- =============================================================================
--- Nexus Commerce — standalone functions (3), each with EXCEPTION section
--- Next: 08_procedures.sql
--- =============================================================================
+-- Three standalone functions. Next: 08_procedures.sql
 
 CREATE OR REPLACE FUNCTION fn_get_order_total (
     p_order_id IN ORDERS.order_id%TYPE
@@ -77,4 +74,4 @@ EXCEPTION
 END fn_is_product_in_stock;
 /
 
-PROMPT Standalone functions created.
+PROMPT Functions OK.

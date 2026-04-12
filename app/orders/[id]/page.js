@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { useAuth } from '@/contexts/auth-context';
 import { api, ApiError } from '@/lib/api-client';
+import { ProductImageThumb } from '@/components/ProductImageThumb';
 
 function formatMoney(n) {
   return new Intl.NumberFormat('en-CA', {
@@ -149,12 +150,21 @@ export default function OrderDetailPage() {
           {(items || []).map((line) => (
             <li
               key={line.order_item_id}
-              className="flex justify-between text-sm"
+              className="flex items-center justify-between gap-3 text-sm"
             >
-              <span>
-                {line.product_name} × {line.quantity}
+              <span className="flex min-w-0 items-center gap-3">
+                <ProductImageThumb
+                  src={line.image_url}
+                  alt={line.product_name}
+                  size={48}
+                />
+                <span className="min-w-0">
+                  {line.product_name} × {line.quantity}
+                </span>
               </span>
-              <span>{formatMoney(line.unit_price * line.quantity)}</span>
+              <span className="shrink-0">
+                {formatMoney(line.unit_price * line.quantity)}
+              </span>
             </li>
           ))}
         </ul>

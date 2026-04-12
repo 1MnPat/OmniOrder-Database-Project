@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/auth-context';
 import { useCart } from '@/contexts/cart-context';
+import Image from 'next/image';
 
 function formatMoney(n) {
   return new Intl.NumberFormat('en-CA', {
@@ -88,11 +89,22 @@ export default function ProductDetailPage() {
 
       <div className="mt-10 grid gap-12 lg:grid-cols-2 lg:items-start">
         <div className="relative min-h-[320px] overflow-hidden rounded-card bg-gradient-to-br from-surface-container-low via-white to-surface-container shadow-ambient lg:min-h-[420px]">
-          <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-[120px] font-black tracking-tighter text-primary/10">
-              GPU
-            </span>
-          </div>
+          {product.image_url ? (
+            <Image
+              src={product.image_url}
+              alt={product.product_name}
+              fill
+              className="object-contain p-6"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              priority
+            />
+          ) : (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <span className="text-[120px] font-black tracking-tighter text-primary/10">
+                GPU
+              </span>
+            </div>
+          )}
         </div>
 
         <div>

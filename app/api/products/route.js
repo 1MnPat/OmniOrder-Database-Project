@@ -1,5 +1,6 @@
 import oracledb from 'oracledb';
 import { executeQuery, getConnection } from '@/lib/db';
+import { getAdminFromRequest } from '@/lib/auth';
 import { requireAuth } from '@/lib/middleware';
 import {
   ok,
@@ -30,8 +31,13 @@ export async function GET(request) {
     const maxPrice = searchParams.get('max_price');
     const search = searchParams.get('search');
     const { page, limit, offset } = parsePagination(searchParams);
+    const includeInactive =
+      searchParams.get('include_inactive') === '1' && getAdminFromRequest(request);
 
-    const conditions = ['p.is_active = 1'];
+    const conditions = [];
+    if (!includeInactive) {
+      conditions.push('p.is_active = 1');
+    }
     const binds = {};
 
     if (categoryId) {
@@ -81,6 +87,7 @@ export async function GET(request) {
          p.product_id AS "product_id",
          p.product_name AS "product_name",
          p.description AS "description",
+         p.image_url AS "image_url",
          p.price AS "price",
          p.stock_quantity AS "stock_quantity",
          p.category_id AS "category_id",
@@ -113,7 +120,8 @@ export async function GET(request) {
 async function postHandler(request) {
   try {
     const body = await request.json();
-    const { product_name, description, price, stock_quantity, category_id } = body || {};
+    const { product_name, description, image_url, price, stock_quantity, category_id } =
+      body || {};
 
     if (!product_name || price === undefined || stock_quantity === undefined || !category_id) {
       return badRequest('product_name, price, stock_quantity, and category_id are required');
@@ -129,13 +137,14 @@ async function postHandler(request) {
       conn = await getConnection();
       const result = await conn.execute(
         `INSERT INTO products (
-          product_id, product_name, description, price, stock_quantity, category_id, is_active, created_at
+          product_id, product_name, description, image_url, price, stock_quantity, category_id, is_active, created_at
         ) VALUES (
-          seq_product_id.NEXTVAL, :product_name, :description, :price, :stock_quantity, :category_id, 1, SYSDATE
+          seq_product_id.NEXTVAL, :product_name, :description, :image_url, :price, :stock_quantity, :category_id, 1, SYSDATE
         ) RETURNING product_id INTO :product_id`,
         {
           product_name,
           description: description ?? null,
+          image_url: image_url ?? null,
           price: p,
           stock_quantity: s,
           category_id: Number(category_id),
